@@ -1,39 +1,31 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import "@/global.css";
+import { useFonts } from "expo-font";
+import { SplashScreen, Stack } from "expo-router";
+import React, { useEffect } from "react";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+// LOAD FONTS
+const RootLayout = () => {
+  const [fontsLoaded] = useFonts({
+    "Rubik-ExtraBold": require("@/assets/fonts/Rubik-ExtraBold.ttf"),
+    "Rubik-Bold": require("@/assets/fonts/Rubik-Bold.ttf"),
+    "Rubik-SemiBold": require("@/assets/fonts/Rubik-SemiBold.ttf"),
+    "Rubik-Medium": require("@/assets/fonts/Rubik-Medium.ttf"),
+    "Rubik-Regular": require("@/assets/fonts/Rubik-Regular.ttf"),
+    "Rubik-Light": require("@/assets/fonts/Rubik-Light.ttf"),
   });
 
+  // HIDE SPLASH SCREEN AFTER FONTS LOADED
   useEffect(() => {
-    if (loaded) {
+    if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [fontsLoaded]);
 
-  if (!loaded) {
+  if (!fontsLoaded) {
     return null;
   }
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
-}
+  return <Stack screenOptions={{ headerShown: false }} />;
+};
+
+export default RootLayout;
