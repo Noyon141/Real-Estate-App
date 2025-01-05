@@ -1,9 +1,12 @@
 import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <SafeAreaView
+      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+    >
       <Text className="text-2xl font-rubik-light my-10">
         Welcome to Real Estate
       </Text>
@@ -19,6 +22,6 @@ export default function Index() {
       <Link href={"/properties/[id]"} className="text-lg font-rubik-semibold">
         Property
       </Link>
-    </View>
+    </SafeAreaView>
   );
 }
